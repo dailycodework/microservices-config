@@ -1,6 +1,19 @@
+server:
+  port: 9000
+
 spring:
   application:
     name: user-service
+
+  datasource:
+    url: jdbc:mysql://mysql:3306/user_db
+    username: ${DB_USER:user_user}
+    password: ${DB_PASSWORD:changeme}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQLDialect
 
   cloud:
     stream:
@@ -10,3 +23,4 @@ spring:
           group: ${spring.application.name}
         processUser-out-0:
           destination: ${topics.user-created-success}
+          group: ${spring.application.name}
