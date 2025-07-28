@@ -9,6 +9,30 @@ spring:
   application:
     name: notification-service
 
+  config:
+    import: optional:configserver:http://config-server:9999
+
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: kafka:9092
+      bindings:
+        handleRegistrationComplete-in-0:
+          destination: ${topics.registration-complete}
+          group: ${spring.application.name}
+        handleDeleteUserComplete-in-0:
+          destination: ${topics.delete-user-account-complete}
+          group: ${spring.application.name}
+        handleAppointmentBooked-in-0:
+          destination: ${topics.appointment-booked-complete}
+          group: ${spring.application.name}
+        handleAppointmentStatusChanged-in-0:
+          destination: ${topics.appointment-status-changed}
+          group: ${spring.application.name}
+      default:
+        contentType: application/json
+
   mail:
     host: smtp.gmail.com
     port: 587
@@ -21,18 +45,15 @@ spring:
           starttls:
             enable: true
 
-  cloud:
-    stream:
-      bindings:
-        handleRegistrationEvent-in-0:
-          destination: ${topics.registration-complete}
-          group: ${spring.application.name}
-        handleUserDeleted-in-0:
-          destination: ${topics.delete-user-account-complete}
-          group: ${spring.application.name}
-        handleAppointmentBooked-in-0:
-          destination: ${topics.appointment-booked-complete}
-          group: ${spring.application.name}
-        handleAppointmentStatusChanged-in-0:
-          destination: ${topics.appointment-status-changed}
-          group: ${spring.application.name}
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://discovery-service:8761/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
