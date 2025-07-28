@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: user-service
+
+  cloud:
+    stream:
+      bindings:
+        processUser-in-0:
+          destination: ${topics.user-created-request}
+          group: ${spring.application.name}
+        processUser-out-0:
+          destination: ${topics.user-created-success}
