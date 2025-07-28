@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: notification-service
+
+  cloud:
+    stream:
+      bindings:
+        handleRegistrationEvent-in-0:
+          destination: ${topics.registration-complete}
+          group: ${spring.application.name}
+        handleUserDeleted-in-0:
+          destination: ${topics.delete-user-account-complete}
+          group: ${spring.application.name}
+        handleAppointmentBooked-in-0:
+          destination: ${topics.appointment-booked-complete}
+          group: ${spring.application.name}
+        handleAppointmentStatusChanged-in-0:
+          destination: ${topics.appointment-status-changed}
+          group: ${spring.application.name}
