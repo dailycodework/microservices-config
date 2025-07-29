@@ -1,0 +1,9 @@
+spring:
+  config:
+    activate:
+      on-profile: qa
+
+  datasource:
+    url: jdbc:mysql://qa-mysql:3306/user_db
+    username: qa_user
+    password: qa_pass
