@@ -18,9 +18,9 @@ spring:
   cloud:
     stream:
       bindings:
-        processUser-in-0:
+        processRegistration-in-0:
           destination: ${topics.user-created-request}
           group: ${spring.application.name}
-        processUser-out-0:
+        processRegistration-out-0:
           destination: ${topics.user-created-success}
           group: ${spring.application.name}
